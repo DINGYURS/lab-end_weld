@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sz.lab.mapper.weld.WeldDefectMapper">
+    <update id="update" parameterType="sz.lab.entity.weld.Weld">
+        update weld_defect_info
+        <set>
+            <if test="image!=null">
+                image = #{image},
+            </if>
+            <if test="imageCheck!=null">
+                image_check = #{imageCheck},
+            </if>
+            <if test="info!=null">
+                info = #{info},
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isVerified!=null">
+                is_verified = #{isVerified},
+            </if>
+        </set>
+        where id = #{id}
+
+    </update>
+    <select id="pageQuery" resultType="sz.lab.entity.weld.Weld"
+            parameterType="sz.lab.dto.weld.WeldDefectPageQueryDTO">
+        SELECT * from weld_defect_info
+        <where>
+            <if test="begin!=null">
+                and create_time &gt;= #{begin}
+            </if>
+            <if test="end!=null">
+                and create_time &lt; #{end}
+            </if>
+        </where>
+        order by create_time desc, is_verified asc
+    </select>
+</mapper>

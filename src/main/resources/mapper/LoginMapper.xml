@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sz.lab.mapper.login.LoginMapper">
+
+    <select id="isAdmin" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM orga_user_role a
+        WHERE a.user_id = #{userId}
+        AND a.role_code = 'admin'
+    </select>
+
+    <select id="getUserRoles" resultType="java.lang.String">
+        SELECT role_code
+        FROM orga_user_role
+        WHERE user_id = #{userId}
+    </select>
+</mapper>
